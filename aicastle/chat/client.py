@@ -59,15 +59,15 @@ class OpenAIChatManager:
         self.function_module = function_module
         self.client = get_client(self.platform, api_version)
         self.response = response
-
+        self.response_list = []
+        
         messages = [] if messages is None else messages.copy()
         if self.chat_type == "assistant":
             self.set_assistant(model, additional_system_text, messages, temperature, top_p, function_module)
         elif self.chat_type == "chat":
             self.set_chat(model, additional_system_text, messages, temperature, top_p, stream, function_module)
 
-        if self.response :
-            self.response_list = []
+            
 
     def run_control(self, run, async_=True, result_container=None):
         if async_ :

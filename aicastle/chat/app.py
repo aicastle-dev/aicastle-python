@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import streamlit as st
 
-from aicastle.chat.utils import get_chat_file_hashes
+from aicastle.chat.utils import get_chat_file_hashes, load_system_text
 from aicastle.chat.content_manager import OpenAIContentManager
 from aicastle.chat.utils import load_config
 import aicastle.chat.function_call as fc
@@ -49,7 +49,7 @@ if "chat_manager" not in st.session_state:
         top_p = config_data["top_p"],
         stream = config_data["stream"],
         api_version = config_data["api_version"],
-        additional_system_text = config_data["additional_system_text"],
+        additional_system_text = load_system_text(),
         messages = incontext_messages,
         function_module=fc,
         response=False
