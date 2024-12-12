@@ -52,6 +52,7 @@ if "chat_manager" not in st.session_state:
         additional_system_text = config_data["additional_system_text"],
         messages = incontext_messages,
         function_module=fc,
+        response=False
     )
     st.session_state["chat_manager"] = chat_manager
 else :

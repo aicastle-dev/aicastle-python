@@ -50,7 +50,7 @@ class OpenAIChatManager:
             api_version=None, 
             messages=None,
             function_module=None,
-            response=True,
+            response=False,
         ):
         self.platform = platform
         self.chat_type = chat_type
