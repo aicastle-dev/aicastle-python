@@ -3,6 +3,9 @@ if [ -f .env ]; then
   export $(cat .env | xargs)
 fi
 
+# 기존에 빌드된 파일 삭제
+rm -rf build dist *.egg-info
+
 # get_version.py를 사용하여 버전 정보 가져오기
 VERSION=$(python get_version.py)
 
@@ -18,6 +21,3 @@ python setup.py sdist bdist_wheel
 
 # twine을 사용하여 업로드
 twine upload dist/*
-
-# # 빌드된 파일 삭제
-# rm -rf build dist *.egg-info
