@@ -1,0 +1,12 @@
+-e .
+
+setuptools
+wheel
+twine
+
+# openai
+# azure-identity
+# boto3
+# pillow
+
+
