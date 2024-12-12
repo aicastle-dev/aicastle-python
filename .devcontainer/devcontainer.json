@@ -15,7 +15,8 @@
             // 확장 프로그램
             "extensions": [
                 "ms-toolsai.jupyter",
-                "ms-python.python"
+                "ms-python.python",
+                "GitHub.copilot"
             ],
             "settings": {
                 "workbench.editorAssociations": {
