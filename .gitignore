@@ -1,0 +1,10 @@
+# test/
+# test.ipynb
+# test.py
+
+__pycache__/
+venv/
+
+aicastle.egg-info/
+build/
+dist/
