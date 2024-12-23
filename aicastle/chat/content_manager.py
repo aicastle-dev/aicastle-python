@@ -114,7 +114,7 @@ class OpenAIContentManager:
                     if len(tokens_list) > 0 :
                         messages = [
                             system_message,
-                            {"role":"user", "content": [{"type":"text", "text":f"{self.filepath} 파일의 {page_data["page_num"]} 페이지에서 추출된 텍스트를 작성하시오."}]},
+                            {"role":"user", "content": [{"type":"text", "text":f"{self.filepath} 파일의 {page_data['page_num']} 페이지에서 추출된 텍스트를 작성하시오."}]},
                         ]
                         messages += [{"role":"assistant", "content": [{"type":"text", "text":tokens}]} for tokens in tokens_list]
                         finetuning_data.append({"messages":messages})
