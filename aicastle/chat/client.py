@@ -283,7 +283,7 @@ class OpenAIChatManager:
         
         assistant_id_path = ".aicastle/chat/__aicastlecache__/assistant_id"
         try:
-            with open(assistant_id_path, "r") as f:
+            with open(assistant_id_path, "r", encoding='utf-8') as f:
                 assistant_id = f.read().strip()
             assistant = self.client.beta.assistants.update(
                 assistant_id,
@@ -294,7 +294,7 @@ class OpenAIChatManager:
                 **assistant_kwargs
             )
             os.makedirs(os.path.dirname(assistant_id_path), exist_ok=True)
-            with open(assistant_id_path, "w") as f:
+            with open(assistant_id_path, "w", encoding='utf-8') as f:
                 f.write(assistant.id)
         
         ### thread 생성

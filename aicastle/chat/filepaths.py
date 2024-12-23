@@ -4,7 +4,7 @@ from pathspec import PathSpec
 
 def get_patterns(file_path):
     if os.path.exists(file_path):
-        with open(file_path, 'r') as f:
+        with open(file_path, 'r', encoding='utf-8') as f:
             patterns = f.readlines()
         patterns = [pattern.strip() for pattern in patterns if pattern.strip() and not pattern.startswith('#')]
     else:

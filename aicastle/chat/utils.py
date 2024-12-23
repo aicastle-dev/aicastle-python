@@ -13,6 +13,6 @@ def get_chat_file_hashes():
     return {filepath:get_hash_file(filepath) for filepath in filepaths}
 
 def load_system_text(system_text_path='.aicastle/chat/system.txt'):
-    with open(system_text_path, 'r') as file:
+    with open(system_text_path, 'r', encoding='utf-8') as file:
         system_text = file.read()
     return system_text

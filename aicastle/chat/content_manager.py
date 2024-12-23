@@ -132,7 +132,7 @@ class OpenAIContentManager:
     def loader(self, filepath):
         # 텍스트 파일
         try :
-            with open(filepath, 'r') as file:
+            with open(filepath, 'r', encoding='utf-8') as file:
                 text = file.read()  # 파일 전체 읽기
                 return {"type":"text", "data":text}
         except :
