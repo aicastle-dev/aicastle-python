@@ -4,7 +4,7 @@ from aicastle.chat.filepaths import get_chat_filepaths
 from aicastle.utils.hash import get_hash_file
 
 def load_config(config_path='.aicastle/chat/config.yml'):
-    with open(config_path, 'r') as file:
+    with open(config_path, 'r', encoding='utf-8') as file:
         config_data = yaml.safe_load(file)
     return config_data
 
