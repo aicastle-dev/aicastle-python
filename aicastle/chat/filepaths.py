@@ -1,12 +1,19 @@
 import os
 from pathspec import PathSpec
 
-def get_all_filepaths(gitignore=True):
-    gitignore_path='./.gitignore'
-    if gitignore and os.path.exists(gitignore_path) :
-        with open(gitignore_path, 'r') as f:
+
+def get_patterns(file_path):
+    if os.path.exists(file_path):
+        with open(file_path, 'r') as f:
             patterns = f.readlines()
         patterns = [pattern.strip() for pattern in patterns if pattern.strip() and not pattern.startswith('#')]
+    else:
+        patterns = []
+    return patterns
+
+def get_all_filepaths(gitignore=True):
+    if gitignore :
+        patterns = get_patterns('./.gitignore')
     else :
         patterns = []
 
@@ -34,10 +41,12 @@ def get_target_filepaths(patterns, ignore):
         return [f for f in all_filepaths if spec.match_file(f)]
 
 
-def get_chat_filepaths(patterns):
+def get_chat_filepaths(chatignore_path='./.aicastle/chat/.chatignore'):
+    patterns = get_patterns(chatignore_path)
     return get_target_filepaths(patterns, True)
 
 
-def get_finetuning_filepaths(patterns):
+def get_finetuning_filepaths(finetuning_path='./.aicastle/chat/.finetuning'):
+    patterns = get_patterns(finetuning_path)
     return get_target_filepaths(patterns, False)
 

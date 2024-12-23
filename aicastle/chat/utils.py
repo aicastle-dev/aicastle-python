@@ -8,10 +8,8 @@ def load_config(config_path='.aicastle/chat/config.yml'):
         config_data = yaml.safe_load(file)
     return config_data
 
-def get_chat_file_hashes(patterns=None):
-    if patterns is None:
-        patterns = load_config()["chat_ignore"]
-    filepaths = get_chat_filepaths(patterns)
+def get_chat_file_hashes():
+    filepaths = get_chat_filepaths()
     return {filepath:get_hash_file(filepath) for filepath in filepaths}
 
 def load_system_text(system_text_path='.aicastle/chat/system.txt'):
