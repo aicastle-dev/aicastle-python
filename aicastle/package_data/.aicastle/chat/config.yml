@@ -16,16 +16,3 @@ incontext:
 finetuning:
   in_text: true
   in_image: false
-  
-finetuning:  # 정적 파일
-  - "static/"
-
-chat_ignore:  # 동적 파일
-  - "__pycache__/"
-  - "__aicastlecache__/"
-  - ".aicastle/"
-  - ".devcontainer/"
-  - ".venv/"
-  - "venv/"
-  - "*.ipynb"
-  
