@@ -124,7 +124,7 @@ class OpenAIContentManager:
                     messages = [
                         system_message,
                         {"role":"user", "content": [{"type":"text", "text":"다음 이미지의 파일경로를 작성하시오."}, {"type":"image_url", "image_url":{"url":self.data["data"]}}]},
-                        {"role":"assistant", "content": [{"type":"text", "text":f"{self.filepath} 파일의 {page_data["page_num"]} 페이지"}]}
+                        {"role":"assistant", "content": [{"type":"text", "text":f"{self.filepath} 파일의 {page_data['page_num']} 페이지"}]}
                     ]
                     finetuning_data.append({"messages":messages})
         return finetuning_data
