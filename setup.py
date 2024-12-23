@@ -18,7 +18,7 @@ setup(
         "click",      # CLI 도구
 
         ### chat
-        "yaml",
+        "pyyaml",
         "streamlit",  # Streamlit 의존성
         'openai',
         'tiktoken',
