@@ -9,7 +9,7 @@ stream: true
 
 incontext:
   in_text: true
-  in_image: false
+  in_image: true
   max_tokens: 50000
   modified: true
 

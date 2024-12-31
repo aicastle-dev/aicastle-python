@@ -147,7 +147,7 @@ class OpenAIContentManager:
                     base64_str = base64.b64encode(buffer.getvalue()).decode('utf-8')
                     mime_type = f"image/{img.format.lower()}"
                     base64_str_url = f"data:{mime_type};base64,{base64_str}"
-                    return {"type":"image_url", "data":{"url":base64_str_url}}
+                    return {"type":"image_url", "data":base64_str_url}
         except :
             pass
 
