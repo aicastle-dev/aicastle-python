@@ -54,6 +54,7 @@ if "chat_manager" not in st.session_state:
         api_version = config_data["api_version"],
         additional_system_text = load_system_text(),
         messages = incontext_messages,
+        function_call=config_data["function_call"],
         function_module=fc,
         response=False
     )
