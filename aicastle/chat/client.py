@@ -336,6 +336,5 @@ class OpenAIChatManager:
             "messages": [
                 {"role":"system", "content":[{"type":"text", "text":chat_hp.system_text+"/n"+additional_system_text}]},
             ] + messages,
-            **({"tools": get_tools(function_module)} if function_call and function_module and get_tools(function_module) else {}),
-            **({"parallel_tool_calls": False} if function_call and function_module and get_tools(function_module) else {}),
+            **({"tools": get_tools(function_module), "parallel_tool_calls": False} if function_call and function_module and get_tools(function_module) else {}),
         }
