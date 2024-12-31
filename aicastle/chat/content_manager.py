@@ -25,14 +25,13 @@ class OpenAIContentManager:
         
         self.type = self.data["type"] if self.data else None
 
-    def get_incontext_messages(self, model="gpt-4o", max_tokens=50000, in_text=True, in_image=False, info_modified=False):
+    def get_incontext_messages(self, model="gpt-4o", resolution="auto", max_tokens=50000, in_text=True, in_image=False, info_modified=False):
         if info_modified :
             content = [
                 {"type":"text", "text":"(info) 다음 파일이 수정 됨."}
             ]
         else :
             content = []
-        
         
         if self.type == "text":
             if in_text :
@@ -46,7 +45,7 @@ class OpenAIContentManager:
             if in_image :
                 content += [
                     {"type":"text", "text":f'''<<<context filepath="{self.filepath}">>>'''},
-                    {"type":"image_url", "image_url":{"url":self.data["data"]}},
+                    {"type":"image_url", "image_url":{"url":self.data["data"], "resolution":resolution}},
                     {"type":"text", "text":f'''<<<///context>>>'''}
                 ]
             else :
@@ -59,7 +58,7 @@ class OpenAIContentManager:
                         for tokens in split_tokens(page_data["text"], max_tokens, model=model):
                             content.append({"type":"text", "text":tokens})
                     if in_image :
-                        content.append({"type":"image_url", "image_url":{"url":page_data["image_url"]}})
+                        content.append({"type":"image_url", "image_url":{"url":page_data["image_url"], "resolution":resolution}})
                     content.append({"type":"text", "text":f'''<<<///context>>>'''})
             else :
                 content.append({"type":"text", "text":f'''<<<context filepath="{self.filepath}"///>>>'''})

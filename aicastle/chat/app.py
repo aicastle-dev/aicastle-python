@@ -36,6 +36,7 @@ if "chat_manager" not in st.session_state:
             in_text = config_data["incontext"]["in_text"],
             in_image = config_data["incontext"]["in_image"],
             info_modified = False,
+            resolution=config_data["incontext"]["resolution"],
         )
     tokens_count, total_price = calculate_openai_messages_tokens_price(incontext_messages)
     print(" ============ incontext_messages (only text) ============ ")
@@ -45,6 +46,8 @@ if "chat_manager" not in st.session_state:
         platform = config_data["platform"],
         chat_type = config_data["chat_type"],
         model = config_data["model"],
+        assistant_id=config_data["assistant_id"],
+        assistant_update=config_data["assistant_update"],
         temperature = config_data["temperature"],
         top_p = config_data["top_p"],
         stream = config_data["stream"],

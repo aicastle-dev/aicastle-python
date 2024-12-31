@@ -43,6 +43,8 @@ class OpenAIChatManager:
             platform="openai", 
             chat_type="assistant", 
             model="gpt-4o",
+            assistant_id=None,
+            assistant_update=False,
             temperature=1,
             top_p=1,
             stream=True,
@@ -63,7 +65,7 @@ class OpenAIChatManager:
         
         messages = [] if messages is None else messages.copy()
         if self.chat_type == "assistant":
-            self.set_assistant(model, additional_system_text, messages, temperature, top_p, function_module)
+            self.set_assistant(model, assistant_id, assistant_update, additional_system_text, messages, temperature, top_p, function_module)
         elif self.chat_type == "chat":
             self.set_chat(model, additional_system_text, messages, temperature, top_p, stream, function_module)
 
@@ -270,8 +272,7 @@ class OpenAIChatManager:
         else :
             raise Exception(f"Invalid chat_type : {self.chat_type}")
         
-    def set_assistant(self, model, additional_system_text, messages, temperature, top_p, function_module):
-        ### assistant 생성 
+    def set_assistant(self, model, assistant_id, assistant_update, additional_system_text, messages, temperature, top_p, function_module):
         assistant_kwargs = {
             "name":os.path.basename(os.getcwd()),
             "model":model,
@@ -280,23 +281,34 @@ class OpenAIChatManager:
             "top_p":top_p,
             **({"tools": get_tools(function_module)} if function_module and get_tools(function_module) else {})
         }
-        
-        assistant_id_path = ".aicastle/chat/__aicastlecache__/assistant_id"
-        try:
-            with open(assistant_id_path, "r", encoding='utf-8') as f:
-                assistant_id = f.read().strip()
-            assistant = self.client.beta.assistants.update(
-                assistant_id,
-                **assistant_kwargs
-            )
-        except :
-            assistant = self.client.beta.assistants.create(
-                **assistant_kwargs
-            )
-            os.makedirs(os.path.dirname(assistant_id_path), exist_ok=True)
-            with open(assistant_id_path, "w", encoding='utf-8') as f:
-                f.write(assistant.id)
-        
+        ### assistant 생성
+        if assistant_id is None :
+            assistant_id_path = ".aicastle/chat/__aicastlecache__/assistant_id"
+            try:
+                with open(assistant_id_path, "r", encoding='utf-8') as f:
+                    assistant_id = f.read().strip()
+                assistant = self.client.beta.assistants.update(
+                    assistant_id,
+                    **assistant_kwargs
+                )
+            except :
+                assistant = self.client.beta.assistants.create(
+                    **assistant_kwargs
+                )
+                os.makedirs(os.path.dirname(assistant_id_path), exist_ok=True)
+                with open(assistant_id_path, "w", encoding='utf-8') as f:
+                    f.write(assistant.id)
+        else :
+            if assistant_update :
+                assistant = self.client.beta.assistants.update(
+                    assistant_id,
+                    **assistant_kwargs
+                )
+            else :
+                assistant = self.client.beta.assistants.retrieve(
+                    assistant_id
+                )
+
         ### thread 생성
         thread = self.client.beta.threads.create(
             messages = messages[:chat_hp.max_thread_create_len] # 최대 32개 까지 밖에 안됨.....
