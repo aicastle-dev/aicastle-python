@@ -330,6 +330,7 @@ class OpenAIChatManager:
             "temperature":temperature,
             "top_p":top_p,
             "stream":stream,
+            "store":True,
             **({"stream_options":{"include_usage":True}} if stream else {}),
             "parallel_tool_calls":False,   # tool call 이 한번에 담겨옴 
             "messages": [
