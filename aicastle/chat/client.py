@@ -51,6 +51,7 @@ class OpenAIChatManager:
             additional_system_text="",
             api_version=None, 
             messages=None,
+            function_call=False,
             function_module=None,
             response=False,
         ):
@@ -65,9 +66,9 @@ class OpenAIChatManager:
         
         messages = [] if messages is None else messages.copy()
         if self.chat_type == "assistant":
-            self.set_assistant(model, assistant_id, assistant_update, additional_system_text, messages, temperature, top_p, function_module)
+            self.set_assistant(model, assistant_id, assistant_update, additional_system_text, messages, temperature, top_p, function_call, function_module)
         elif self.chat_type == "chat":
-            self.set_chat(model, additional_system_text, messages, temperature, top_p, stream, function_module)
+            self.set_chat(model, additional_system_text, messages, temperature, top_p, stream, function_call, function_module)
 
             
 
@@ -272,14 +273,14 @@ class OpenAIChatManager:
         else :
             raise Exception(f"Invalid chat_type : {self.chat_type}")
         
-    def set_assistant(self, model, assistant_id, assistant_update, additional_system_text, messages, temperature, top_p, function_module):
+    def set_assistant(self, model, assistant_id, assistant_update, additional_system_text, messages, temperature, top_p, function_call, function_module):
         assistant_kwargs = {
             "name":os.path.basename(os.getcwd()),
             "model":model,
             "instructions":chat_hp.system_text+"/n"+additional_system_text,
             "temperature":temperature,
             "top_p":top_p,
-            **({"tools": get_tools(function_module)} if function_module and get_tools(function_module) else {})
+            **({"tools": get_tools(function_module)} if function_call and function_module and get_tools(function_module) else {})
         }
         ### assistant 생성
         if assistant_id is None :
@@ -324,7 +325,7 @@ class OpenAIChatManager:
             **({"stream": True} if self.stream else {})
         }
 
-    def set_chat(self, model, additional_system_text, messages, temperature, top_p, stream, function_module):
+    def set_chat(self, model, additional_system_text, messages, temperature, top_p, stream, function_call, function_module):
         self.chat_kwargs = {
             "model":model,
             "temperature":temperature,
@@ -336,5 +337,5 @@ class OpenAIChatManager:
             "messages": [
                 {"role":"system", "content":[{"type":"text", "text":chat_hp.system_text+"/n"+additional_system_text}]},
             ] + messages,
-            **({"tools": get_tools(function_module)} if function_module and get_tools(function_module) else {})
+            **({"tools": get_tools(function_module)} if function_call and function_module and get_tools(function_module) else {})
         }
