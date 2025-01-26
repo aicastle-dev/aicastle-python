@@ -13,6 +13,9 @@ import time
 from matplotlib import pyplot as plt
 from IPython.display import display
 
+from dotenv import load_dotenv
+load_dotenv()
+
 class DRfCAWSClient:
     def __init__(self, config=None):
         if config is None :
@@ -25,20 +28,20 @@ class DRfCAWSClient:
             self.config['ec2-user'] = "ubuntu"
 
         self.ec2 = boto3.client('ec2',
-            aws_access_key_id=self.config['aws-access-key-id'],
-            aws_secret_access_key=self.config['aws-secret-access-key'],
+            aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+            aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
             region_name=self.config['region']
         )
 
         self.s3 = boto3.client('s3',
-            aws_access_key_id=self.config['aws-access-key-id'],
-            aws_secret_access_key=self.config['aws-secret-access-key'],
+            aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+            aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
             region_name=self.config['region']
         )
 
         self.cloudtrail = boto3.client('cloudtrail',
-            aws_access_key_id=self.config['aws-access-key-id'],
-            aws_secret_access_key=self.config['aws-secret-access-key'],
+            aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+            aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
             region_name=self.config['region']
         )
 
