@@ -17,6 +17,11 @@ setup(
         # 'scikit-learn',
         "click",      # CLI 도구
 
+        ## drfc-aws
+        "boto3",
+        "paramiko",
+        # "python-dotenv",
+
         ### chat
         "pyyaml",
         "streamlit",  # Streamlit 의존성
