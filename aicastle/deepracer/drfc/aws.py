@@ -274,7 +274,7 @@ class DRfCAWSClient:
 
     def ssh_start_xrog(self):
         try :
-            self.ssh_command("source ~/deepracer-for-cloud/utils/start-xorg.sh", timeout=10, err_output_print=False)
+            self.ssh_command("source ~/deepracer-for-cloud/utils/start-xorg.sh", timeout=10)
         except :
             pass
 
