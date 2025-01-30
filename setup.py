@@ -12,7 +12,8 @@ setup(
     
     # 의존성
     install_requires=[ 
-        # 'tqdm', 
+        'tqdm', 
+        'ipykernel',
         # 'pandas', 
         # 'scikit-learn',
         "click",      # CLI 도구
@@ -36,6 +37,18 @@ setup(
         # 'boto3',
 
         'pillow',
+
+        ## deepracer
+        'opencv-python',
+        'tensorflow',
+        'requests-toolbelt',
+        'beautifulsoup4',
+        'lxml',
+        'pynput',
+        'paramiko',
+        'ollama',
+
+
     ],
 
     entry_points={
