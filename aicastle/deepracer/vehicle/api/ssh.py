@@ -1,7 +1,7 @@
 
 import paramiko
 import time
-from _aicastle.deepracer.vehicle.api import vehicle_control_module_content
+from aicastle.deepracer.vehicle.api import vehicle_control_module_content
 
 class RebootTrigger:
     def __init__(self, ssh_client, password, reboot_seconds=20):

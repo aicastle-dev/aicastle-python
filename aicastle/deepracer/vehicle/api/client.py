@@ -17,12 +17,13 @@ import paramiko
 import time
 from tqdm import tqdm
 
-from _aicastle.deepracer.vehicle.api.controller import (
+
+from aicastle.deepracer.vehicle.api.controller import (
     DiscreteController,
     ContinuousController,
     KeyboardController
 )
-from _aicastle.deepracer.vehicle.api.constant import (
+from aicastle.deepracer.vehicle.api.constant import (
     INFERENCE_IMG_HEIGHT,
     INFERENCE_IMG_WIDTH,
     MAX_IMG_HEIGHT,
@@ -30,14 +31,14 @@ from _aicastle.deepracer.vehicle.api.constant import (
     DEFAULT_IMG_HEIGHT,
     DEFAULT_IMG_WIDTH
 )
-from _aicastle.deepracer.vehicle.api.ssh import (
+from aicastle.deepracer.vehicle.api.ssh import (
     RebootTrigger,
     ssh_connect,
     ssh_sudo_command,
     ssh_remote_content_update,
     vehicle_control_module_content_update
 )
-from _aicastle.deepracer.vehicle.api.utils import (
+from aicastle.deepracer.vehicle.api.utils import (
     KeyboardListener,
     get_time_now,
     show_image,

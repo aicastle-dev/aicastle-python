@@ -3,7 +3,7 @@ import json
 import time
 import os
 import time
-from _aicastle.deepracer.vehicle.api.constant import (
+from aicastle.deepracer.vehicle.api.constant import (
     INFERENCE_IMG_HEIGHT,
     INFERENCE_IMG_WIDTH,
     MAX_IMG_HEIGHT,
@@ -11,7 +11,7 @@ from _aicastle.deepracer.vehicle.api.constant import (
     DEFAULT_IMG_HEIGHT,
     DEFAULT_IMG_WIDTH
 )
-from _aicastle.deepracer.vehicle.api.utils import (
+from aicastle.deepracer.vehicle.api.utils import (
     KeyboardListener,
     get_time_now,
     show_image,
