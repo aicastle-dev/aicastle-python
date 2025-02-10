@@ -37,6 +37,7 @@ setup(
             'pynput',
             'paramiko',
             # 'ipykernel',
+            # 'openai',
             # 'ollama',
         ],
         'deepracer-drfc': [
