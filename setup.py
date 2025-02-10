@@ -10,46 +10,42 @@ setup(
         'aicastle': ['package_data/*'],
     },
     
-    # 의존성
-    install_requires=[ 
+    # 의존성 필수
+    install_requires=[
         'tqdm', 
-        'ipykernel',
-        # 'pandas', 
-        # 'scikit-learn',
-        "click",      # CLI 도구
-
-        ## drfc-aws
-        "boto3",
-        "paramiko",
-        # "python-dotenv",
-
-        ### chat
-        "pyyaml",
-        "streamlit",  # Streamlit 의존성
-        'openai',
-        'tiktoken',
-        'pathspec',
-        'pymupdf',
-        'python-dotenv',
-        # 'python-magic',
-        
-        # 'azure-identity',
-        # 'boto3',
-
+        "click",
         'pillow',
-
-        ## deepracer
-        'opencv-python',
-        'tensorflow',
-        'requests-toolbelt',
-        'beautifulsoup4',
-        'lxml',
-        'pynput',
-        'paramiko',
-        'ollama',
-
-
+        'python-dotenv',
+        "pyyaml",
     ],
+
+    # 의존성 선택
+    extras_require={
+        'chat': [
+            "streamlit",
+            'openai',
+            'tiktoken',
+            'pathspec',
+            'pymupdf',  # fiz
+        ],
+        'deepracer-vehicle': [
+            'tensorflow',
+            'opencv-python',
+            'requests-toolbelt',
+            'beautifulsoup4',
+            'lxml',
+            'pynput',
+            'paramiko',
+            # 'ipykernel',
+            # 'ollama',
+        ],
+        'deepracer-drfc': [
+            "boto3",
+            "paramiko",
+            'pandas',
+            # 'ipykernel',
+        ],
+    },
 
     entry_points={
         "console_scripts": [
