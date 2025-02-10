@@ -351,8 +351,6 @@ class DRfCAWSClient:
             print("Skip best model uploading car zip.") if _print else None
 
     def get_train_viewer_url(self):
-        if not self.is_training():
-            raise Exception("Training is not running.")
         return self.view_url + f"?ip={self.get_instance_public_ip()}"
 
     def get_eval_viewer_url(self):
@@ -410,6 +408,8 @@ class DRfCAWSClient:
 
     def start_training(self, wipes=False, retries=2, _print=True, suffix_force=False):
         if self.is_training():
+            print(f"Training Viewer : {self.get_train_viewer_url()}") if _print else None
+            print(f"Model S3 URL : {self.get_s3_bucket_url()}/{model_name}/") if _print else None
             raise Exception("Training is already running. Stop training first.")
         if self.is_evaluating():
             raise Exception("Evaluation is running. Stop Evaluation first.")
