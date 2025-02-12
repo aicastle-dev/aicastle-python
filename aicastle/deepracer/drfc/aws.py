@@ -344,7 +344,22 @@ class DRfCAWSClient:
             except :
                 print("failed") if _print else None
 
-            self.s3.delete_object(Bucket=self.config['s3-bucket'], Key=f"{model_name_temp}/")
+            try :
+                print("Delete Temp Folder...", end="") if _print else None
+                self.s3.delete_object(Bucket=self.config['s3-bucket'], Key=f"{model_name_temp}/")
+                while True:
+                    response = self.s3.list_objects_v2(Bucket=self.config['s3-bucket'], Prefix=f"{model_name_temp}/")
+                    if 'Contents' not in response:
+                        break
+
+                    delete_keys = [{'Key': obj['Key']} for obj in response['Contents']]
+                    self.s3.delete_objects(Bucket=self.config['s3-bucket'], Delete={'Objects': delete_keys})
+                    if not response.get('NextContinuationToken'):
+                        break
+                print("done") if _print else None
+            except :
+                print("failed") if _print else None
+            
             best_model_s3_url = f"https://{self.config["region"]}.console.aws.amazon.com/s3/buckets/{self.config['s3-bucket']}/{model_name_best}/"
             print(f"Finished best model uploading: {best_model_s3_url}") if _print else None
         else :
@@ -485,6 +500,7 @@ class DRfCAWSClient:
             print("done") if _print else None
 
         if upload_best:
+            print()
             self.upload_best_model_car_zip(_print=_print)
 
 
