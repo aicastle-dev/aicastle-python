@@ -345,7 +345,7 @@ class DRfCAWSClient:
                 print("failed") if _print else None
 
             self.s3.delete_object(Bucket=self.config['s3-bucket'], Key=f"{model_name_temp}/")
-            best_model_s3_url = f"https://console.aws.amazon.com/s3/buckets/{self.config['s3-bucket']}/{model_name_best}/"
+            best_model_s3_url = f"https://{self.config["region"]}.console.aws.amazon.com/s3/buckets/{self.config['s3-bucket']}/{model_name_best}/"
             print(f"Finished best model uploading: {best_model_s3_url}") if _print else None
         else :
             print("Skip best model uploading car zip.") if _print else None
