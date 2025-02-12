@@ -408,8 +408,18 @@ class DRfCAWSClient:
             "dr-stop-evaluation && "
             "dr-start-evaluation"
         )
-        output = self.ssh_command_pty(command, success_keyword, timeout)
-        print(f"Evaluation Viewer: {self.get_eval_viewer_url()}") if _print else None
+        try :
+            output = self.ssh_command_pty(command, success_keyword, timeout)
+            print(f"Evaluation Viewer: {self.get_eval_viewer_url()}") if _print else None
+        except :
+            # 실패 시, dr-stop-evaluation 실행
+            try :
+                self.ssh_command("dr-stop-evaluation")
+            except :
+                pass
+            raise Exception("Failed to start evaluation. Retry please.")
+
+
         
     def stop_evaluation(self, _print=True):
         if not self.is_evaluating():
