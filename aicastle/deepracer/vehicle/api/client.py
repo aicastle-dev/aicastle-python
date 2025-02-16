@@ -84,8 +84,8 @@ class VehicleClient:
             password, 
             speed_percent=50,
             speed_percent_increase=1,
-            width=DEFAULT_IMG_WIDTH, 
-            height=DEFAULT_IMG_HEIGHT, 
+            width=INFERENCE_IMG_WIDTH,   # or DEFAULT_IMG_WIDTH
+            height=INFERENCE_IMG_HEIGHT,   # or DEFAULT_IMG_HEIGHT
             stream_chunk_size=1024,
             frame_queue_maxlen=10,
             max_human_angle=30,
@@ -109,7 +109,7 @@ class VehicleClient:
             original_isSshEnabled = self.is_ssh_enabled()
             self.enable_ssh()
             if not self.is_ssh_default_password_changed():
-                self.reset_ssh_password(self.ssh_password)
+                self.reset_ssh_password(new_password=self.ssh_password)
             reboot_trigger = vehicle_control_module_content_update(
                 hostname=self.ip, 
                 username="deepracer", 
@@ -245,12 +245,11 @@ class VehicleClient:
         else :
             raise DeepracerVehicleApiError("Failed to get ssh default password status")
         
-    def reset_ssh_password(self, ssh_password=None, timeout=30):
-        ssh_password = self.ssh_password if ssh_password is None else ssh_password
+    def reset_ssh_password(self, new_password, old_password="deepracer", timeout=30):
         if self.is_ssh_default_password_changed():
             return True
 
-        data = {"oldPassword":'deepracer', "newPassword":ssh_password}
+        data = {"oldPassword":old_password, "newPassword":new_password}
         response = self._put(path="/api/resetSshPassword", headers=self.headers, data=data, timeout=timeout, raise_exception=True)
         if response and response.json()['success']:
             return True
