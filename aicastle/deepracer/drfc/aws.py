@@ -939,10 +939,10 @@ class DRfCAWSClient:
         )["Body"].read().decode("utf-8")
         data_dict = json.loads(data)
         df_metrics = pd.DataFrame(data_dict['metrics'])
-        df_metrics['seconds'] = df_metrics['metric_time']/1000
-        # df_metrics.set_index('trial', inplace=True)
-        df_metrcis2 = df_metrics[['trial', 'seconds', 'off_track_count', 'crash_count', 'reset_count']]
-        display(df_metrcis2)
+        df_metrics['lap_time'] = df_metrics['elapsed_time_in_milliseconds'] / 1000
+        df_metrics['total_lap_time'] = df_metrics['lap_time'].cumsum()
+        df_metrics = df_metrics[['trial', 'total_lap_time', 'lap_time', 'off_track_count', 'crash_count']]
+        display(df_metrics)
         
         # Job name
         metrics_basename = os.path.basename(metrics_key)
