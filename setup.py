@@ -29,7 +29,7 @@ setup(
             'pymupdf',  # fiz
         ],
         'deepracer-vehicle': [
-            'tensorflow',
+            # 'tensorflow',
             'opencv-python',
             'requests-toolbelt',
             'beautifulsoup4',

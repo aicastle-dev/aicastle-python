@@ -5,7 +5,6 @@ import cv2
               
 import tensorflow.compat.v1 as tf
 tf.compat.v1.disable_v2_behavior()
-
 from tensorflow.compat.v1 import GraphDef, Session, ConfigProto
 
 # 경고 억제
